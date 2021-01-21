@@ -55,6 +55,7 @@ GroupAdd, PoEWindowGrp, Path of Exile ahk_class POEWindowClass ahk_exe PathOfExi
 GroupAdd, PoEWindowGrp, Path of Exile ahk_class POEWindowClass ahk_exe PathOfExile_x64_KG.exe
 GroupAdd, PoEWindowGrp, Path of Exile ahk_class POEWindowClass ahk_exe PathOfExile_x64EGS.exe
 GroupAdd, PoEWindowGrp, Path of Exile ahk_class POEWindowClass ahk_exe PathOfExile_x64Steam.exe
+GroupAdd, PoEWindowGrp, Path of Exile on GeForce NOW ahk_class CEFCLIENT ahk_exe GeForceNOW.exe
 
 global data := {}
 Try {
@@ -220,6 +221,15 @@ ShowGuiTimer:
       client .= "logs\Client.txt"
     }
 
+    Process, Exist, GeForceNOW.exe
+    If(!errorlevel) {
+      closed++
+    } Else {
+      client := GetProcessPath( "GeForceNOW.exe" )
+      StringTrimRight, client, client, 14
+      client .= "logs\Client.txt"
+    }
+    
     If (closed = 8){
       GoSub, HideAllWindows
       ;Sleep 10 seconds, no need to keep checking this
